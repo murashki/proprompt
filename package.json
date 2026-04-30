@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "author": "Yakov Dalinchuk <yakov.dalinchuk@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "main": "dist/cjs/index.cjs.js",
   "module": "dist/esm/index.esm.js",
   "types": "dist/src/index.d.ts",
