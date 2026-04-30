@@ -2,6 +2,7 @@ export * from './@types/index.ts';
 export * from './core/index.ts';
 export * from './cancel.ts';
 export * from './constants.ts';
+export * from './delay.ts';
 export * from './dump.ts';
 export * from './exception.ts';
 export * from './getLines.ts';
