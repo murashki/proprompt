@@ -1,0 +1,5 @@
+export const DEFAULT_BLINK_INTERVAL = 500;
+
+export const WRITER_DELAY_DECREMENT_STEP = 0.5;
+
+export const WRITER_SECOND_LINE_PRINT_DELAY = 30;
