@@ -1,6 +1,6 @@
 {
   "name": "proprompt",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Yakov Dalinchuk <yakov.dalinchuk@gmail.com>",
   "license": "MIT",
   "main": "dist/cjs/index.cjs.js",
