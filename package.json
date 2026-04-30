@@ -6,13 +6,6 @@
   "main": "dist/cjs/index.cjs.js",
   "module": "dist/esm/index.esm.js",
   "types": "dist/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/esm/index.esm.js",
-      "require": "./dist/cjs/index.cjs.js"
-    }
-  },
   "files": [
     "dist",
     "README.md",
