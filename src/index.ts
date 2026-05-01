@@ -6,6 +6,7 @@ export * from './catFile.ts';
 export * from './clipboard.ts';
 export * from './compileMultipleColumnMatrix.ts';
 export * from './compileSingleColumnMatrix.ts';
+export * from './confirmAction.ts';
 export * from './constants.ts';
 export * from './delay.ts';
 export * from './dump.ts';
