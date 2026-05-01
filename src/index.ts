@@ -10,6 +10,7 @@ export * from './confirmAction.ts';
 export * from './constants.ts';
 export * from './delay.ts';
 export * from './dump.ts';
+export * from './editFile.ts';
 export * from './exception.ts';
 export * from './getLines.ts';
 export * from './intro.ts';

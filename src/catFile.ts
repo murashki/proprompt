@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import c from 'chalk';
 import { format } from 'date-fns/format';
-import { stdout } from './core/index.ts';
+import { stdout } from './index.ts';
 import type { CatFileProps } from './index.ts';
 import { line } from './index.ts';
 

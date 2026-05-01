@@ -1,6 +1,7 @@
 export * from './CatFileProps.ts';
 export * from './DelayCallback.ts';
 export * from './DelayCallbackHandler.ts';
+export * from './EditFileProps.ts';
 export * from './ExceptionProps.ts';
 export * from './GetLinesProps.ts';
 export * from './LineOverflow.ts';
