@@ -2,14 +2,12 @@
 
 import type { Key } from 'node:readline';
 import { inspect } from 'node:util';
-
-import { withResolvers } from '../../tools/withResolvers.ts';
+import { withResolvers } from '../../withResolvers.ts';
 import { stdin } from '../index.ts';
 import { stdout } from '../index.ts';
 
 export async function pressAnyKey() {
   const { promise, resolve } = withResolvers();
-
 
   const onData = (data: Buffer) => {
     const key = data.toString();

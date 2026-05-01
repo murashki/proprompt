@@ -1,5 +1,5 @@
-import type { Resolvers } from '../../tools/withResolvers.ts';
-import { withResolvers } from '../../tools/withResolvers.ts';
+import type { Resolvers } from '../../index.ts';
+import { withResolvers } from '../../index.ts';
 
 const prompt = `Set terminal to 40×12 (w×h) for testing\n\n`;
 

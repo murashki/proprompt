@@ -1,4 +1,4 @@
-import { compileSingleColumnMatrix } from '../../index.ts';
+import { compileSingleColumnMatrix } from '../../../index.ts';
 import type { TextElement } from './index.ts';
 import type { TextProps } from './index.ts';
 import { TEXT_MIN_WIDTH } from './index.ts';

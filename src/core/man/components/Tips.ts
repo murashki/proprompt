@@ -1,5 +1,5 @@
-import { compileMultipleColumnMatrix } from '../../index.ts';
-import { symbol } from '../../index.ts';
+import { compileMultipleColumnMatrix } from '../../../index.ts';
+import { symbol } from '../../../index.ts';
 import type { TipsElement } from './index.ts';
 import type { TipsProps } from './index.ts';
 import { TIPS_MIN_WIDTH } from './index.ts';

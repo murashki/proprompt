@@ -1,6 +1,6 @@
 import { expect } from 'vitest';
 import { test } from 'vitest';
-import type { MultipleColumnMatrix } from '../../../index.ts';
+import type { MultipleColumnMatrix } from '../../../../index.ts';
 
 function getLines(getMatrix: () => MultipleColumnMatrix) {
   const matrix = getMatrix();

@@ -1,5 +1,5 @@
 import c from 'chalk';
-import { compileSingleColumnMatrix } from '../../index.ts';
+import { compileSingleColumnMatrix } from '../../../index.ts';
 import type { H1Element } from './index.ts';
 import type { H1Props } from './index.ts';
 import { H1_MIN_WIDTH } from './index.ts';

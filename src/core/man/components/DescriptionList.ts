@@ -1,4 +1,4 @@
-import { compileMultipleColumnMatrix } from '../../index.ts';
+import { compileMultipleColumnMatrix } from '../../../index.ts';
 import type { DescriptionListElement } from './index.ts';
 import type { DescriptionListProps } from './index.ts';
 import { DESCRIPTION_LIST_MIN_WIDTH } from './index.ts';
