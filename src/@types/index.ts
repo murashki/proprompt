@@ -1,3 +1,4 @@
+export * from './CatFileProps.ts';
 export * from './DelayCallback.ts';
 export * from './DelayCallbackHandler.ts';
 export * from './ExceptionProps.ts';

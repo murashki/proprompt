@@ -2,6 +2,7 @@ export * from './@types/index.ts';
 export * from './core/index.ts';
 export * from './app.ts';
 export * from './cancel.ts';
+export * from './catFile.ts';
 export * from './clipboard.ts';
 export * from './compileMultipleColumnMatrix.ts';
 export * from './compileSingleColumnMatrix.ts';
