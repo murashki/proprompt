@@ -1,3 +1,5 @@
+export const MONITOR_FILE_REFRESH_INTERVAL = 600;
+
 export const SELECT_DEFAULT_WIDTH = 60;
 
 export const SELECT_DEFAULT_MAX_HEIGHT = 10;

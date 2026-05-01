@@ -11,6 +11,7 @@ export * from './MatrixColumnContentAlignValue.ts';
 export * from './MatrixColumnContentOverflowValue.ts';
 export * from './MatrixColumnWidthValue.ts';
 export * from './MessageProps.ts';
+export * from './MonitorFileProps.ts';
 export * from './MultipleColumnMatrix.ts';
 export * from './MultipleColumnMatrixColumn.ts';
 export * from './MultipleColumnMatrixColumnRender.ts';
