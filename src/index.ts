@@ -18,6 +18,7 @@ export * from './intro.ts';
 export * from './line.ts';
 export * from './message.ts';
 export * from './monitorFile.ts';
+export * from './plainObjectTable.ts';
 // export * from './select.man.ts';
 export * from './select.ts';
 export * from './stringify.ts';
