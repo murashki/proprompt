@@ -1,8 +1,8 @@
-import { appEnd } from '../src/index.ts';
-import { appStart } from '../src/index.ts';
+import { enterDirectTerminalManipulation } from '../src/index.ts';
+import { exitDirectTerminalManipulation } from '../src/index.ts';
 import { text } from '../src/index.ts';
 
-appStart();
+enterDirectTerminalManipulation();
 const textResult = await text({ message: 'Enter name' });
 console.log(textResult);
-appEnd();
+exitDirectTerminalManipulation();
