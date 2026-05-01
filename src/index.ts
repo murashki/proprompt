@@ -12,6 +12,7 @@ export * from './delay.ts';
 export * from './dump.ts';
 export * from './editFile.ts';
 export * from './exception.ts';
+export * from './exec.ts';
 export * from './getLines.ts';
 export * from './intro.ts';
 export * from './line.ts';
