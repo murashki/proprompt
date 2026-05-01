@@ -4,17 +4,21 @@
   "author": "Yakov Dalinchuk <yakov.dalinchuk@gmail.com>",
   "license": "MIT",
   "type": "module",
-  "main": "dist/cjs/index.cjs.js",
-  "module": "dist/esm/index.esm.js",
-  "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "types": "./dist/src/index.d.ts"
+    }
+  },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run clear && rollup --config ./rollup.config.js",
-    "clear": "rm -rf dist",
+    "build": "npm run clear-dist && rollup --config ./rollup.config.js",
+    "clear-dist": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "ts-lint:watch": "npx tsc --noEmit --watch --project ./tsconfig.json"
   },

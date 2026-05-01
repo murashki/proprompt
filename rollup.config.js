@@ -8,12 +8,12 @@ export default [
     output: [
       {
         dir: './dist',
-        entryFileNames: 'cjs/[name].cjs.js',
+        entryFileNames: 'cjs/[name].cjs',
         format: 'cjs',
       },
       {
         dir: './dist',
-        entryFileNames: 'esm/[name].esm.js',
+        entryFileNames: 'esm/[name].js',
         format: 'esm',
       },
     ],
