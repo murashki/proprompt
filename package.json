@@ -20,7 +20,7 @@
     "build": "npm run clear-dist && rollup --config ./rollup.config.js",
     "clear-dist": "rm -rf dist",
     "prepublishOnly": "npm run build",
-    "ts-lint:watch": "npx tsc --noEmit --watch --project ./tsconfig.json"
+    "ts-lint:watch": "tsc --noEmit --watch --project ./tsconfig.json"
   },
   "dependencies": {
     "chalk": "^5.6.2",

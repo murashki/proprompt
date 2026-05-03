@@ -1,8 +1,8 @@
 export class TerminatedByEsc extends Error {
-  key: null | string;
+  processName: null | string;
 
-  constructor(key?: string) {
-    super(key ? `${key} terminated by "Esc"` : `Terminated by "Esc"`);
-    this.key = key ?? null;
+  constructor(processName?: string) {
+    super(processName ? `${processName} terminated by "Esc"` : `Terminated by "Esc"`);
+    this.processName = processName ?? null;
   }
 }

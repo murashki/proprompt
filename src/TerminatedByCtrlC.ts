@@ -1,8 +1,8 @@
 export class TerminatedByCtrlC extends Error {
-  key: null | string;
+  processName: null | string;
 
-  constructor(key?: string) {
-    super(key ? `${key} terminated by "Ctrl + C"` : `Terminated by "Ctrl + C"`);
-    this.key = key ?? null;
+  constructor(processName?: string) {
+    super(processName ? `${processName} terminated by "Ctrl + C"` : `Terminated by "Ctrl + C"`);
+    this.processName = processName ?? null;
   }
 }

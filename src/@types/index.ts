@@ -4,6 +4,8 @@ export * from './DelayCallbackHandler.ts';
 export * from './EditFileProps.ts';
 export * from './ExceptionProps.ts';
 export * from './GetLinesProps.ts';
+export * from './IntroProps.ts';
+export * from './IntroStyle.ts';
 export * from './LineOverflow.ts';
 export * from './LineProps.ts';
 export * from './LineStyle.ts';
