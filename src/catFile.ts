@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import c from 'chalk';
 import { format } from 'date-fns/format';
-import { stdout } from './index.ts';
-import type { CatFileOpts } from './index.ts';
-import { line } from './index.ts';
+import { stdout } from './core/stdio/index.ts';
+import type { CatFileOpts } from './@types/CatFileOpts.ts';
+import { line } from './line.ts';
 
 /**
  * Возвращает:

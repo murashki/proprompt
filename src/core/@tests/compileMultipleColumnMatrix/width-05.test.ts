@@ -1,4 +1,4 @@
-import { compileMultipleColumnMatrix } from '../../../index.ts';
+import { compileMultipleColumnMatrix } from '../../../compileMultipleColumnMatrix.ts';
 import { testMatrix } from './tools/testMatrix.ts';
 
 const getMatrix = () => compileMultipleColumnMatrix({

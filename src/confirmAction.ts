@@ -1,4 +1,4 @@
-import { text } from './index.ts';
+import { text } from './text.ts';
 
 /**
  * Возвращает:

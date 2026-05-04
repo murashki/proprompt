@@ -1,13 +1,13 @@
 import c from 'chalk';
-import type { Page } from './core/man/index.ts';
-import { Br } from './core/man/index.ts';
-import { DescriptionList } from './core/man/index.ts';
-import { H1 } from './core/man/index.ts';
-import { H2 } from './core/man/index.ts';
-import { hotKey } from './core/man/index.ts';
-import { Text } from './core/man/index.ts';
-import { Tips } from './core/man/index.ts';
-import { stdout } from './index.ts';
+import type { Page } from './core/man/@types/Page.ts';
+import { Br } from './core/man/components/Br.ts';
+import { DescriptionList } from './core/man/components/DescriptionList.ts';
+import { H1 } from './core/man/components/H1.ts';
+import { H2 } from './core/man/components/H2.ts';
+import { hotKey } from './core/man/components/hotKey.ts';
+import { Text } from './core/man/components/Text.ts';
+import { Tips } from './core/man/components/Tips.ts';
+import { stdout } from './core/stdio/index.ts';
 
 export function getManPage(): Page {
   return {

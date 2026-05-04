@@ -1,8 +1,8 @@
-import type { Man } from './index.ts';
-import type { GetManPage } from './index.ts';
-import { bottomHelp } from './index.ts';
-import { stdin } from '../index.ts';
-import { stdout } from '../index.ts';
+import { stdin } from '../stdio/index.ts';
+import { stdout } from '../stdio/index.ts';
+import type { Man } from './@types/Man.ts';
+import type { GetManPage } from './@types/GetManPage.ts';
+import { bottomHelp } from './bottomHelp.ts';
 
 export function printMan(getManPage: GetManPage): Man {
   type State = {

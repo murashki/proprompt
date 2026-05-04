@@ -1,4 +1,4 @@
-import type { TableColumn } from './index.ts';
+import type { TableColumn } from './TableColumn.ts';
 
 export type TableOpts<
   TMatrixItem extends Record<string, any> = Record<string, any>,

@@ -1,7 +1,7 @@
-import { compileSingleColumnMatrix } from '../../../index.ts';
-import type { TextElement } from './index.ts';
-import type { TextOpts } from './index.ts';
-import { TEXT_MIN_WIDTH } from './index.ts';
+import { compileSingleColumnMatrix } from '../../../compileSingleColumnMatrix.ts';
+import type { TextElement } from './@types/TextElement.ts';
+import type { TextOpts } from './@types/TextOpts.ts';
+import { TEXT_MIN_WIDTH } from './constants.ts';
 
 export function Text(opts: TextOpts): TextElement {
   return {

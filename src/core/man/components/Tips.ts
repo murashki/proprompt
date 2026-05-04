@@ -1,8 +1,8 @@
-import { compileMultipleColumnMatrix } from '../../../index.ts';
-import { symbol } from '../../../index.ts';
-import type { TipsElement } from './index.ts';
-import type { TipsOpts } from './index.ts';
-import { TIPS_MIN_WIDTH } from './index.ts';
+import { compileMultipleColumnMatrix } from '../../../compileMultipleColumnMatrix.ts';
+import * as symbol from '../../../symbol.ts';
+import type { TipsElement } from './@types/TipsElement.ts';
+import type { TipsOpts } from './@types/TipsOpts.ts';
+import { TIPS_MIN_WIDTH } from './constants.ts';
 
 export function Tips(opts: TipsOpts): TipsElement {
   return {

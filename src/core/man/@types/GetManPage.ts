@@ -1,4 +1,4 @@
-import type { Page } from './index.ts';
+import type { Page } from './Page.ts';
 
 export type GetManPage = {
   (): Page;

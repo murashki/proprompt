@@ -1,5 +1,5 @@
-import { stdin } from './index.ts';
-import { stdout } from './index.ts';
+import { stdin } from './core/stdio/index.ts';
+import { stdout } from './core/stdio/index.ts';
 
 export function enterDirectTerminalManipulation() {
   stdin.setRawMode(true);

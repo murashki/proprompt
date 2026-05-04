@@ -1,6 +1,6 @@
-import { stdin } from './index.ts';
-import type { WaitForKeyCallback } from './index.ts';
-import type { WaitForKeyCallbackHandler } from './index.ts';
+import type { WaitForKeyCallback } from './@types/WaitForKeyCallback.ts';
+import type { WaitForKeyCallbackHandler } from './@types/WaitForKeyCallbackHandler.ts';
+import { stdin } from './core/stdio/index.ts';
 
 export async function waitForKey(keys: string[], fn: WaitForKeyCallback): Promise<null | string> {
   const listener = stdin.createListener();

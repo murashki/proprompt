@@ -1,6 +1,6 @@
 import childProcess from 'node:child_process';
 import { withResolvers } from './core/tools/withResolvers.ts';
-import { message } from './index.ts';
+import { message } from './message.ts';
 
 export async function exec(command: string) {
   const { promise, resolve, reject } = withResolvers<string>();

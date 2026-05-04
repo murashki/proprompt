@@ -1,7 +1,7 @@
 import c from 'chalk';
-import type { IntroOpts } from './index.ts';
-import { message } from './index.ts';
-import { symbol } from './index.ts';
+import type { IntroOpts } from './@types/IntroOpts.ts';
+import { message } from './message.ts';
+import * as symbol from './symbol.ts';
 
 export async function intro(text: string, opts?: IntroOpts) {
   let styledText = ``;

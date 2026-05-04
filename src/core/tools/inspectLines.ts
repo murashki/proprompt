@@ -1,5 +1,5 @@
 import stripAnsi from 'strip-ansi';
-import type { LinesSummary } from './index.ts';
+import type { LinesSummary } from './@types/LinesSummary.ts';
 
 export function inspectLines(rawLines: string[]): LinesSummary {
   let minLength = Infinity;

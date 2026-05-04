@@ -1,16 +1,16 @@
 import c from 'chalk';
 import stripAnsi from 'strip-ansi';
-import type { MultipleColumnMatrixColumn } from './index.ts';
-import type { TableOpts } from './index.ts';
-import { compileMultipleColumnMatrix } from './index.ts';
-import { padEnd } from './index.ts';
-import { symbol } from './index.ts';
-import { write } from './index.ts';
+import type { MultipleColumnMatrixColumn } from './@types/MultipleColumnMatrixColumn.ts';
+import type { TableOpts } from './@types/TableOpts.ts';
+import { padEnd } from './core/tools/padEnd.ts';
+import { write } from './core/writer.ts';
+import { compileMultipleColumnMatrix } from './compileMultipleColumnMatrix.ts';
+import * as symbol from './symbol.ts';
 
 export async function table<
   TMatrixItem extends Record<string, any> = Record<string, any>,
 >(opts: TableOpts<TMatrixItem>) {
-  const { animate, columns, ...propsRest } = opts;
+  const { animate, columns, ...optsRest } = opts;
 
   const matrixColumns: MultipleColumnMatrixColumn<TMatrixItem>[] = columns.map((column) => {
     if (typeof column.width === `number`) {
@@ -29,7 +29,7 @@ export async function table<
   });
 
   const matrix = compileMultipleColumnMatrix({
-    ...propsRest,
+    ...optsRest,
     columns: matrixColumns,
     gap: ` ` + b(symbol.TABLE_BORDER.L1010) + ` `,
     leftGap: b(symbol.TABLE_BORDER.L1010) + ` `,

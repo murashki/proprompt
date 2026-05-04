@@ -1,10 +1,10 @@
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { SingleColumnMatrixOpts } from './index.ts';
-import { padAround } from './index.ts';
-import { padEnd } from './index.ts';
-import { padStart } from './index.ts';
+import type { SingleColumnMatrixOpts } from './@types/SingleColumnMatrixOpts.ts';
+import { padAround } from './core/tools/padAround.ts';
+import { padEnd } from './core/tools/padEnd.ts';
+import { padStart } from './core/tools/padStart.ts';
 
 export function compileSingleColumnMatrix(opts: SingleColumnMatrixOpts): string[] {
   const lines = opts.lines.flatMap((line) => line.split(`\n`));

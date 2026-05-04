@@ -1,4 +1,4 @@
-import { sisteransi } from '../../index.ts';
+import * as sisteransi from '../../sisteransi.ts';
 import { testCommand } from '../testCommand.ts';
 
 const command = () => sisteransi.cursor.nextLine();

@@ -1,7 +1,7 @@
-import type { EventName } from './index.ts';
-import type { DataEventHandler } from './index.ts';
-import type { EndEventHandler } from './index.ts';
-import type { KeypressEventHandler } from './index.ts';
+import type { DataEventHandler } from './DataEventHandler.ts';
+import type { EventName } from './EventName.ts';
+import type { EndEventHandler } from './EndEventHandler.ts';
+import type { KeypressEventHandler } from './KeypressEventHandler.ts';
 
 export type Listener = {
   on: {

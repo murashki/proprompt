@@ -1,4 +1,4 @@
-import type { TextValidationHint } from './index.ts';
+import type { TextValidationHint } from './TextValidationHint.ts';
 
 export type TextOpts<
   TNullable extends boolean = false,

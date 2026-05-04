@@ -1,5 +1,5 @@
-import type { LineStyle } from './index.ts';
-import type { LineOverflow } from './index.ts';
+import type { LineOverflow } from './LineOverflow.ts';
+import type { LineStyle } from './LineStyle.ts';
 
 export type GetLinesOpts = {
   as?: null | LineStyle;

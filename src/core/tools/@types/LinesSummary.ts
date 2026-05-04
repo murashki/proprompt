@@ -1,4 +1,4 @@
-import type { LineDesc } from './index.ts';
+import type { LineDesc } from './LineDesc.ts';
 
 export type LinesSummary = {
   lines: LineDesc[];

@@ -1,8 +1,8 @@
 import c from 'chalk';
-import { compileSingleColumnMatrix } from '../../../index.ts';
-import type { H1Element } from './index.ts';
-import type { H1Opts } from './index.ts';
-import { H1_MIN_WIDTH } from './index.ts';
+import { compileSingleColumnMatrix } from '../../../compileSingleColumnMatrix.ts';
+import type { H1Element } from './@types/H1Element.ts';
+import type { H1Opts } from './@types/H1Opts.ts';
+import { H1_MIN_WIDTH } from './constants.ts';
 
 export function H1(opts: H1Opts): H1Element {
   return {

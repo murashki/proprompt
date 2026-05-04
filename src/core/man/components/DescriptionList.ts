@@ -1,7 +1,7 @@
-import { compileMultipleColumnMatrix } from '../../../index.ts';
-import type { DescriptionListElement } from './index.ts';
-import type { DescriptionListOpts } from './index.ts';
-import { DESCRIPTION_LIST_MIN_WIDTH } from './index.ts';
+import { compileMultipleColumnMatrix } from '../../../compileMultipleColumnMatrix.ts';
+import type { DescriptionListElement } from './@types/DescriptionListElement.ts';
+import type { DescriptionListOpts } from './@types/DescriptionListOpts.ts';
+import { DESCRIPTION_LIST_MIN_WIDTH } from './constants.ts';
 
 export function DescriptionList(opts: DescriptionListOpts): DescriptionListElement {
   return {

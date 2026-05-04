@@ -1,12 +1,12 @@
 import stripAnsi from 'strip-ansi';
+import type { WriterTask } from './@types/WriterTask.ts';
 import type { Resolvers } from './tools/@types/Resolvers.ts';
+import { stdout } from './stdio/index.ts';
+import { diffLine } from './tools/diffLine.ts';
+import { padEnd } from './tools/padEnd.ts';
 import { withResolvers } from './tools/withResolvers.ts';
-import type { WriterTask } from './index.ts';
-import { WRITER_DELAY_DECREMENT_STEP } from './index.ts';
-import { WRITER_SECOND_LINE_PRINT_DELAY } from './index.ts';
-import { diffLine } from './index.ts';
-import { padEnd } from './index.ts';
-import { stdout } from './index.ts';
+import { WRITER_DELAY_DECREMENT_STEP } from './constants.ts';
+import { WRITER_SECOND_LINE_PRINT_DELAY } from './constants.ts';
 
 export function createWriter() {
   let prevLines: string[] = [];

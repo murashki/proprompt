@@ -1,5 +1,5 @@
-import type { DelayCallback } from './index.ts';
-import type { DelayCallbackHandler } from './index.ts';
+import type { DelayCallback } from './@types/DelayCallback.ts';
+import type { DelayCallbackHandler } from './@types/DelayCallbackHandler.ts';
 
 export function delay(ms: number, fn?: DelayCallback) {
   return new Promise<void>((resolve) => {

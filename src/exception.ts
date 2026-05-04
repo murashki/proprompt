@@ -1,6 +1,6 @@
 import c from 'chalk';
-import type { ExceptionOpts } from './index.ts';
-import { line } from './index.ts';
+import type { ExceptionOpts } from './@types/ExceptionOpts.ts';
+import { line } from './line.ts';
 
 export async function exception(error: unknown, opts?: ExceptionOpts) {
   const message = opts?.message || `An error occurred:`;

@@ -1,19 +1,19 @@
 import fs from 'node:fs';
 import c from 'chalk';
 import { format } from 'date-fns/format';
-import type { MonitorFileOpts } from './index.ts';
-import { MONITOR_FILE_REFRESH_INTERVAL } from './index.ts';
-import { cancel } from './index.ts';
-import { createWriter } from './index.ts';
-import { delay } from './index.ts';
-import { getLines } from './index.ts';
-import { line } from './index.ts';
-import { message } from './index.ts';
-import { select } from './index.ts';
-import { stdin } from './index.ts';
-import { terminate } from './index.ts';
-import { TerminatedByCtrlC } from './index.ts';
-import { waitForKey } from './index.ts';
+import type { MonitorFileOpts } from './@types/MonitorFileOpts.ts';
+import { stdin } from './core/stdio/index.ts';
+import { createWriter } from './core/writer.ts';
+import { MONITOR_FILE_REFRESH_INTERVAL } from './constants.ts';
+import { cancel } from './cancel.ts';
+import { delay } from './delay.ts';
+import { getLines } from './getLines.ts';
+import { line } from './line.ts';
+import { message } from './message.ts';
+import { select } from './select.ts';
+import { terminate } from './terminate.ts';
+import { TerminatedByCtrlC } from './TerminatedByCtrlC.ts';
+import { waitForKey } from './waitForKey.ts';
 
 /**
  * Выводит пустую строку в конце.

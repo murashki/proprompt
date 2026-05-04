@@ -1,10 +1,10 @@
 import readline from 'node:readline';
 import type { Key } from 'node:readline';
-import type { DataEventHandler } from './index.ts';
-import type { EndEventHandler } from './index.ts';
-import type { EventName } from './index.ts';
-import type { KeypressEventHandler } from './index.ts';
-import type { Listener } from './index.ts';
+import type { DataEventHandler } from './@types/DataEventHandler.ts';
+import type { EndEventHandler } from './@types/EndEventHandler.ts';
+import type { EventName } from './@types/EventName.ts';
+import type { KeypressEventHandler } from './@types/KeypressEventHandler.ts';
+import type { Listener } from './@types/Listener.ts';
 
 readline.emitKeypressEvents(process.stdin);
 

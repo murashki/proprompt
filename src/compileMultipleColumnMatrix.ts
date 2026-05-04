@@ -1,12 +1,12 @@
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { MatrixColumnContentOverflow } from './index.ts';
-import type { MultipleColumnMatrix } from './index.ts';
-import type { MultipleColumnMatrixOpts } from './index.ts';
-import { padAround } from './index.ts';
-import { padEnd } from './index.ts';
-import { padStart } from './index.ts';
+import type { MatrixColumnContentOverflow } from './@types/MatrixColumnContentOverflow.ts';
+import type { MultipleColumnMatrix } from './@types/MultipleColumnMatrix.ts';
+import type { MultipleColumnMatrixOpts } from './@types/MultipleColumnMatrixOpts.ts';
+import { padAround } from './core/tools/padAround.ts';
+import { padEnd } from './core/tools/padEnd.ts';
+import { padStart } from './core/tools/padStart.ts';
 
 export function compileMultipleColumnMatrix<
   TMatrixItem extends Record<string, any>,

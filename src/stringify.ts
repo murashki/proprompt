@@ -1,5 +1,5 @@
 import c from 'chalk';
-import type { StringifyOpts } from './index.ts';
+import type { StringifyOpts } from './@types/StringifyOpts.ts';
 
 export function stringify(value: any, opts?: StringifyOpts): string {
   return stringifyRecursive(value, opts);

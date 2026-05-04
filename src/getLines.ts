@@ -2,9 +2,9 @@ import c from 'chalk';
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { GetLinesOpts } from './index.ts';
-import { stdout } from './index.ts';
-import { symbol } from './index.ts';
+import type { GetLinesOpts } from './@types/GetLinesOpts.ts';
+import { stdout } from './core/stdio/index.ts';
+import * as symbol from './symbol.ts';
 
 export function getLines(text: string, opts?: GetLinesOpts) {
   let marker = symbol.BAR;

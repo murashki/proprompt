@@ -1,4 +1,4 @@
-import type { BrElement } from './index.ts';
+import type { BrElement } from './@types/BrElement.ts';
 
 export function Br(): BrElement {
   return {

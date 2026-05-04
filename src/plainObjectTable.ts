@@ -1,6 +1,6 @@
 import c from 'chalk';
-import { message } from './index.ts';
-import { table } from './index.ts';
+import { message } from './message.ts';
+import { table } from './table.ts';
 
 export async function plainObjectTable(rows: Record<string, any>[]) {
   if ( ! rows.length) {

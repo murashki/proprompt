@@ -1,10 +1,10 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
+import type { EditFileOpts } from './@types/EditFileOpts.ts';
 import { withResolvers } from './core/tools/withResolvers.ts';
-import type { EditFileOpts } from './index.ts';
-import { enterDirectTerminalManipulation } from './index.ts';
-import { exitDirectTerminalManipulation } from './index.ts';
-import { message } from './index.ts';
+import { enterDirectTerminalManipulation } from './app.ts';
+import { exitDirectTerminalManipulation } from './app.ts';
+import { message } from './message.ts';
 
 /**
  * Возвращает:

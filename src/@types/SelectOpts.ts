@@ -1,6 +1,6 @@
-import type { SelectContentOverflow } from './index.ts';
-import type { SelectOption } from './index.ts';
-import type { SelectValidationHint } from './index.ts';
+import type { SelectContentOverflow } from './SelectContentOverflow.ts';
+import type { SelectOption } from './SelectOption.ts';
+import type { SelectValidationHint } from './SelectValidationHint.ts';
 
 export type SelectOpts<
   TValue extends any = any,

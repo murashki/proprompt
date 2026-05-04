@@ -1,9 +1,9 @@
 import c from 'chalk';
-import { compileMultipleColumnMatrix } from '../../index.ts';
-import { compileSingleColumnMatrix } from '../../index.ts';
-import { symbol } from '../../index.ts';
-import { stdout } from '../index.ts';
-import { hotKey } from './index.ts';
+import { compileMultipleColumnMatrix } from '../../compileMultipleColumnMatrix.ts';
+import { compileSingleColumnMatrix } from '../../compileSingleColumnMatrix.ts';
+import * as symbol from '../../symbol.ts';
+import { stdout } from '../stdio/index.ts';
+import { hotKey } from './components/hotKey.ts';
 
 export const bottomHelp = () => {
   return [

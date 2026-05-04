@@ -1,4 +1,4 @@
-import type { DescriptionLine } from './index.ts';
+import type { DescriptionLine } from './DescriptionLine.ts';
 
 export type DescriptionListElement = {
   type: `description-list`,
