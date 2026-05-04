@@ -2,7 +2,7 @@ import type { SelectContentOverflow } from './index.ts';
 import type { SelectOption } from './index.ts';
 import type { SelectValidationHint } from './index.ts';
 
-export type SelectProps<
+export type SelectOpts<
   TValue extends any = any,
   TNullable extends boolean = false,
 > = {

@@ -1,6 +1,6 @@
 import type { TextValidationHint } from './index.ts';
 
-export type TextProps<
+export type TextOpts<
   TNullable extends boolean = false,
 > = {
   blinkInterval?: number;

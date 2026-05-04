@@ -1,18 +1,18 @@
 import c from 'chalk';
-import type { StringifyProps } from './index.ts';
+import type { StringifyOpts } from './index.ts';
 
-export function stringify(value: any, props?: StringifyProps): string {
-  return stringifyRecursive(value, props);
+export function stringify(value: any, opts?: StringifyOpts): string {
+  return stringifyRecursive(value, opts);
 }
 
-function stringifyRecursive(value: any, props?: StringifyProps): string {
-  const string = props?.specialValues?.(value);
+function stringifyRecursive(value: any, opts?: StringifyOpts): string {
+  const string = opts?.specialValues?.(value);
   if (string == null) {
     if (value == null) {
-      return stringifyNullOrUndefined(value, props?.primitivesUppercase);
+      return stringifyNullOrUndefined(value, opts?.primitivesUppercase);
     }
     else if (typeof value === `boolean`) {
-      return stringifyBoolean(value, props?.primitivesUppercase);
+      return stringifyBoolean(value, opts?.primitivesUppercase);
     }
     else if (typeof value === `number`) {
       return stringifyNumberOrBigint(value);
@@ -30,13 +30,13 @@ function stringifyRecursive(value: any, props?: StringifyProps): string {
       return stringifyFunction(value);
     }
     else if (Array.isArray(value)) {
-      return stringifyArray(value, props);
+      return stringifyArray(value, opts);
     }
     else if (value instanceof Date) {
       return stringifyDate(value);
     }
     else {
-      return stringifyObject(value, props);
+      return stringifyObject(value, opts);
     }
   }
   else {
@@ -68,9 +68,9 @@ export function stringifyFunction(value: () => any) {
   return c.gray(`Function[${value.name}]`);
 }
 
-export function stringifyArray(value: any[], props?: StringifyProps): string {
-  const depth = props?.depth ?? 1;
-  const innerIndent = props?.innerIndent ?? 0;
+export function stringifyArray(value: any[], opts?: StringifyOpts): string {
+  const depth = opts?.depth ?? 1;
+  const innerIndent = opts?.innerIndent ?? 0;
 
   if ( ! depth) {
     return c.gray(`[...]`);
@@ -79,16 +79,16 @@ export function stringifyArray(value: any[], props?: StringifyProps): string {
     return c.gray(`[]`);
   }
   else {
-    if (props?.inline) {
+    if (opts?.inline) {
       const lines = value.map((value) => {
-        return `${stringifyRecursive(value, { ...props, depth: depth - 1, innerIndent: 0 })}`;
+        return `${stringifyRecursive(value, { ...opts, depth: depth - 1, innerIndent: 0 })}`;
       });
       const content = lines.join(`${c.gray(`,`)} `);
       return `${c.gray(`[`)}${content}${c.gray(`]`)}`;
     }
     else {
       const lines = value.map((value) => {
-        return `${i(innerIndent + 1)}${stringifyRecursive(value, { ...props, depth: depth - 1, innerIndent: innerIndent + 1 })}`;
+        return `${i(innerIndent + 1)}${stringifyRecursive(value, { ...opts, depth: depth - 1, innerIndent: innerIndent + 1 })}`;
       });
       const content = lines.join(`${c.gray(`,`)}\n`);
       return `${c.gray(`[`)}\n${content}\n${i(innerIndent)}${c.gray(`]`)}`;
@@ -96,9 +96,9 @@ export function stringifyArray(value: any[], props?: StringifyProps): string {
   }
 }
 
-export function stringifyObject(value: Record<any, any>, props?: StringifyProps): string {
-  const depth = props?.depth ?? 1;
-  const innerIndent = props?.innerIndent ?? 0;
+export function stringifyObject(value: Record<any, any>, opts?: StringifyOpts): string {
+  const depth = opts?.depth ?? 1;
+  const innerIndent = opts?.innerIndent ?? 0;
 
   if ( ! depth) {
     return c.gray(`{...}`);
@@ -109,16 +109,16 @@ export function stringifyObject(value: Record<any, any>, props?: StringifyProps)
       return c.gray(`{}`);
     }
     else {
-      if (props?.inline) {
+      if (opts?.inline) {
         const lines = keys.map((key) => {
-          return `${key}${c.gray(`:`)} ${stringifyRecursive(value[key], { ...props, depth: depth - 1, innerIndent: 0 })}`;
+          return `${key}${c.gray(`:`)} ${stringifyRecursive(value[key], { ...opts, depth: depth - 1, innerIndent: 0 })}`;
         });
         const content = lines.join(`${c.gray(`,`)} `);
         return `${c.gray(`{`)}${content}${c.gray(`}`)}`;
       }
       else {
         const lines = keys.map((key) => {
-          return `${i(innerIndent + 1)}${key}${c.gray(`:`)} ${stringifyRecursive(value[key], { ...props, depth: depth - 1, innerIndent: innerIndent + 1 })}`;
+          return `${i(innerIndent + 1)}${key}${c.gray(`:`)} ${stringifyRecursive(value[key], { ...opts, depth: depth - 1, innerIndent: innerIndent + 1 })}`;
         });
         const content = lines.join(`${c.gray(`,`)}\n`);
         return `${c.gray(`{`)}\n${content}\n${i(innerIndent)}${c.gray(`}`)}`;

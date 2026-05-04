@@ -1,13 +1,13 @@
 import { compileMultipleColumnMatrix } from '../../../index.ts';
 import type { DescriptionListElement } from './index.ts';
-import type { DescriptionListProps } from './index.ts';
+import type { DescriptionListOpts } from './index.ts';
 import { DESCRIPTION_LIST_MIN_WIDTH } from './index.ts';
 
-export function DescriptionList(props: DescriptionListProps): DescriptionListElement {
+export function DescriptionList(opts: DescriptionListOpts): DescriptionListElement {
   return {
     type: `description-list`,
-    list: props.list,
-    paddingLeft: props.paddingLeft,
+    list: opts.list,
+    paddingLeft: opts.paddingLeft,
     compile: (width: number) => {
       const safetyWidth = Math.max(DESCRIPTION_LIST_MIN_WIDTH, width);
 
@@ -22,9 +22,9 @@ export function DescriptionList(props: DescriptionListProps): DescriptionListEle
             contentOverflow: `word-wrap`,
           },
         ],
-        data: props.list,
+        data: opts.list,
         gap: `    `,
-        leftGap: ` `.repeat(props.paddingLeft ?? 0),
+        leftGap: ` `.repeat(opts.paddingLeft ?? 0),
         width: safetyWidth,
       });
 

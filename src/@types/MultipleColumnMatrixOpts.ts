@@ -1,6 +1,6 @@
 import type { MultipleColumnMatrixColumn } from './MultipleColumnMatrixColumn.ts';
 
-export type MultipleColumnMatrixProps<
+export type MultipleColumnMatrixOpts<
   TMatrixItem extends Record<string, any>,
 > = {
   columns: MultipleColumnMatrixColumn<TMatrixItem>[];

@@ -1,4 +1,4 @@
-export type TextPromptProps = {
+export type TextPromptOpts = {
   initialValue?: string;
   initialCursor?: number;
   initialCursorInverse?: boolean;

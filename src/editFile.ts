@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import { withResolvers } from './core/tools/withResolvers.ts';
-import type { EditFileProps } from './index.ts';
+import type { EditFileOpts } from './index.ts';
 import { enterDirectTerminalManipulation } from './index.ts';
 import { exitDirectTerminalManipulation } from './index.ts';
 import { message } from './index.ts';
@@ -13,10 +13,10 @@ import { message } from './index.ts';
  *
  * Добавляет пустую линию в конце, если что-то выводит
  */
-export async function editFile(filePath: string, props?: EditFileProps): Promise<void | string> {
-  if (props?.temporary) {
+export async function editFile(filePath: string, opts?: EditFileOpts): Promise<void | string> {
+  if (opts?.temporary) {
     if ( ! fs.existsSync(filePath)) {
-      fs.writeFileSync(filePath, props?.content ?? ``, `utf8`);
+      fs.writeFileSync(filePath, opts?.content ?? ``, `utf8`);
     }
   }
   else {
@@ -34,7 +34,7 @@ export async function editFile(filePath: string, props?: EditFileProps): Promise
   editor.on(`close`, (code) => {
     if (code === 0) {
       const content = fs.readFileSync(filePath, `utf8`);
-      if (props?.temporary) {
+      if (opts?.temporary) {
         fs.unlinkSync(filePath);
       }
       resolve(content);

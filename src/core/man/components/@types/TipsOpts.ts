@@ -1,4 +1,4 @@
-export type TipsProps = {
+export type TipsOpts = {
   list: string[];
   paddingLeft?: number;
 };

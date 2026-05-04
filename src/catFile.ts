@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import c from 'chalk';
 import { format } from 'date-fns/format';
 import { stdout } from './index.ts';
-import type { CatFileProps } from './index.ts';
+import type { CatFileOpts } from './index.ts';
 import { line } from './index.ts';
 
 /**
@@ -12,7 +12,7 @@ import { line } from './index.ts';
  *
  * Добавляет отступ в конце.
  */
-export async function catFile(filePath: string, props?: CatFileProps): Promise<boolean> {
+export async function catFile(filePath: string, opts?: CatFileOpts): Promise<boolean> {
   if ( ! fs.existsSync(filePath)) {
     await line(`File not found: ${filePath}`, { as: `warning` });
     return false;
@@ -23,7 +23,7 @@ export async function catFile(filePath: string, props?: CatFileProps): Promise<b
   let fileContent = fs.readFileSync(filePath, { encoding: `utf8` });
   const lines = fileContent.split(`\n`);
 
-  if (props?.printFileStat ?? true) {
+  if (opts?.printFileStat ?? true) {
     const modifiedAt = fs.statSync(filePath);
     await line(c.dim(`Size: ${bytesToString(modifiedAt.size)} (lines count: ${lines.length})`));
     await line(c.dim(`Modified at: ${format(modifiedAt.mtime, `yyyy.MM.dd HH:mm:ss XXX`)}`));
@@ -36,11 +36,11 @@ export async function catFile(filePath: string, props?: CatFileProps): Promise<b
     await line(``);
   }
   else {
-    if (props?.fileFormatter === `env`) {
+    if (opts?.fileFormatter === `env`) {
       fileContent = formatEnvLines(lines).join(`\n`);
     }
-    if (props?.lineCommentPrefix) {
-      fileContent = commentLines(lines, props.lineCommentPrefix).join(`\n`);
+    if (opts?.lineCommentPrefix) {
+      fileContent = commentLines(lines, opts.lineCommentPrefix).join(`\n`);
     }
 
     const startText = `Start of file`;

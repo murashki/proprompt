@@ -1,4 +1,4 @@
-export type MonitorFileProps = {
+export type MonitorFileOpts = {
   printFileStat?: boolean;
   lineCount?: number;
 };

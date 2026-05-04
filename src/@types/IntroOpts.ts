@@ -1,5 +1,5 @@
 import type { IntroStyle } from './IntroStyle.ts';
 
-export type IntroProps = {
+export type IntroOpts = {
   as?: null | IntroStyle;
 };

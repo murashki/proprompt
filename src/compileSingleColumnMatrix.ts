@@ -1,23 +1,23 @@
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { SingleColumnMatrixProps } from './index.ts';
+import type { SingleColumnMatrixOpts } from './index.ts';
 import { padAround } from './index.ts';
 import { padEnd } from './index.ts';
 import { padStart } from './index.ts';
 
-export function compileSingleColumnMatrix(props: SingleColumnMatrixProps): string[] {
-  const lines = props.lines.flatMap((line) => line.split(`\n`));
-  const leftGapWidth = props.startWith ? stripAnsi(props.startWith).length : 0;
-  const rightGapWidth = props.endWith ? stripAnsi(props.endWith).length : 0;
-  const width = (props.width ?? lines.reduce((acc, line) => Math.max(acc, stripAnsi(line).length), 0)) - leftGapWidth - rightGapWidth;
+export function compileSingleColumnMatrix(opts: SingleColumnMatrixOpts): string[] {
+  const lines = opts.lines.flatMap((line) => line.split(`\n`));
+  const leftGapWidth = opts.startWith ? stripAnsi(opts.startWith).length : 0;
+  const rightGapWidth = opts.endWith ? stripAnsi(opts.endWith).length : 0;
+  const width = (opts.width ?? lines.reduce((acc, line) => Math.max(acc, stripAnsi(line).length), 0)) - leftGapWidth - rightGapWidth;
 
   return lines
     .flatMap((line) => {
-      if (props.contentOverflow === `word-wrap`) {
+      if (opts.contentOverflow === `word-wrap`) {
         return wrapAnsi(line, width, { hard: true, wordWrap: true }).split(`\n`);
       }
-      else if (props.contentOverflow === `hard-wrap`) {
+      else if (opts.contentOverflow === `hard-wrap`) {
         return wrapAnsi(line, width, { hard: true, wordWrap: false }).split(`\n`);
       }
       else {
@@ -25,10 +25,10 @@ export function compileSingleColumnMatrix(props: SingleColumnMatrixProps): strin
       }
     })
     .map((line) => {
-      if (props.contentAlign === `align-right`) {
+      if (opts.contentAlign === `align-right`) {
         return padStart(line, width);
       }
-      else if (props.contentAlign === `align-center`) {
+      else if (opts.contentAlign === `align-center`) {
         return padAround(line, width);
       }
       else {
@@ -36,6 +36,6 @@ export function compileSingleColumnMatrix(props: SingleColumnMatrixProps): strin
       }
     })
     .map((line) => {
-      return (props.startWith ?? ``) + line + (props.endWith ?? ``);
+      return (opts.startWith ?? ``) + line + (opts.endWith ?? ``);
     });
 }

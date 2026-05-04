@@ -1,6 +1,6 @@
 import type { DescriptionLine } from './index.ts';
 
-export type DescriptionListProps = {
+export type DescriptionListOpts = {
   list: DescriptionLine[];
   paddingLeft?: number;
 };

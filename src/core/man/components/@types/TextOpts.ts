@@ -1,4 +1,4 @@
-export type TextProps = {
+export type TextOpts = {
   content: string;
   paddingLeft?: number;
 };

@@ -2,14 +2,14 @@ import c from 'chalk';
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { GetLinesProps } from './index.ts';
+import type { GetLinesOpts } from './index.ts';
 import { stdout } from './index.ts';
 import { symbol } from './index.ts';
 
-export function getLines(text: string, props?: GetLinesProps) {
+export function getLines(text: string, opts?: GetLinesOpts) {
   let marker = symbol.BAR;
   let bar = symbol.BAR;
-  switch (props?.as) {
+  switch (opts?.as) {
     case `info`: {
       marker = symbol.INFO_MARKER;
       bar = symbol.BAR;
@@ -101,15 +101,15 @@ export function getLines(text: string, props?: GetLinesProps) {
       break;
     }
     default: {
-      marker = props?.marker ?? marker;
-      bar = props?.bar ?? bar;
+      marker = opts?.marker ?? marker;
+      bar = opts?.bar ?? bar;
     }
   }
 
   const lineWidth = stdout.screen.columns() - (marker || bar ? 3 : 0);
   let lines = text.split(`\n`);
 
-  if (props?.overflow === `word-wrap`) {
+  if (opts?.overflow === `word-wrap`) {
     lines = lines.flatMap((line) => {
       let safeLine = line.replaceAll(`\t`, `  `);
       const leftPadLength = stripAnsi(safeLine).replace(/\S.*$/, ``).length;
@@ -121,11 +121,11 @@ export function getLines(text: string, props?: GetLinesProps) {
       return safeLine.split(`\n`);
     });
   }
-  else if (props?.overflow === `hard-wrap`) {
+  else if (opts?.overflow === `hard-wrap`) {
     lines = lines.flatMap((line) => {
       let safeLine = wrapAnsi(line, lineWidth, { hard: true, trim: false, wordWrap: false });
-      if (props.hardReturnSymbol) {
-        const hardReturnSymbol = typeof props.hardReturnSymbol == `string` ? props.hardReturnSymbol : c.dim.gray(`↩`);
+      if (opts.hardReturnSymbol) {
+        const hardReturnSymbol = typeof opts.hardReturnSymbol == `string` ? opts.hardReturnSymbol : c.dim.gray(`↩`);
         safeLine = safeLine.replaceAll(`\n`, `\n${hardReturnSymbol}`);
       }
       return safeLine.split(`\n`);

@@ -1,11 +1,11 @@
 import c from 'chalk';
-import type { IntroProps } from './index.ts';
+import type { IntroOpts } from './index.ts';
 import { message } from './index.ts';
 import { symbol } from './index.ts';
 
-export async function intro(text: string, props?: IntroProps) {
+export async function intro(text: string, opts?: IntroOpts) {
   let styledText = ``;
-  switch (props?.as) {
+  switch (opts?.as) {
     case `warning`: {
       styledText = c.bgYellow(c.black(` ${text} `));
       break;

@@ -1,9 +1,9 @@
 import c from 'chalk';
-import type { ExceptionProps } from './index.ts';
+import type { ExceptionOpts } from './index.ts';
 import { line } from './index.ts';
 
-export async function exception(error: unknown, props?: ExceptionProps) {
-  const message = props?.message || `An error occurred:`;
+export async function exception(error: unknown, opts?: ExceptionOpts) {
+  const message = opts?.message || `An error occurred:`;
 
   const text = error && typeof error === `object` && `stack` in error && error.stack
     ? (error as Error).stack

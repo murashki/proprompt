@@ -7,7 +7,7 @@ import { withResolvers } from './core/tools/withResolvers.ts';
 import type { TextPromptState } from './index.ts';
 import type { TextPromptStateChangeReason } from './index.ts';
 import type { TextPromptStateUpdate } from './index.ts';
-import type { TextProps } from './index.ts';
+import type { TextOpts } from './index.ts';
 import type { TextResult } from './index.ts';
 import type { TextValidationHint } from './index.ts';
 import { TEXT_DEFAULT_WIDTH } from './index.ts';
@@ -39,8 +39,8 @@ type TextStatus =
 
 export async function text<
   TNullable extends boolean = false,
->(props: TextProps<TNullable>): Promise<TextResult<TNullable>> {
-  const width = Math.max(0, props?.width ?? TEXT_DEFAULT_WIDTH);
+>(opts: TextOpts<TNullable>): Promise<TextResult<TNullable>> {
+  const width = Math.max(0, opts?.width ?? TEXT_DEFAULT_WIDTH);
 
   let state: TextState = {
     isNull: false,
@@ -233,8 +233,8 @@ export async function text<
   };
 
   const tryComplete = () => {
-    const validationResult = props.validate
-      ? props.validate((state.isNull ? null : state.promptState.value) as TNullable extends true ? null | string : string)
+    const validationResult = opts.validate
+      ? opts.validate((state.isNull ? null : state.promptState.value) as TNullable extends true ? null | string : string)
       : null;
     if (validationResult) {
       // We can beep here
@@ -272,9 +272,9 @@ export async function text<
     });
   };
 
-  const hints: string[] = props.hints ? [...props.hints] : [];
+  const hints: string[] = opts.hints ? [...opts.hints] : [];
 
-  if (props.nullable && (props.printNullableHint ?? true)) {
+  if (opts.nullable && (opts.printNullableHint ?? true)) {
     hints.push(`This field is nullable`);
   }
 
@@ -288,7 +288,7 @@ export async function text<
       case `quick-actions-mode`:
       case `text-selection-mode`:
       case `help-mode`: {
-        const defaultHelpText = (props.printDefaultHelpText ?? true)
+        const defaultHelpText = (opts.printDefaultHelpText ?? true)
           ? state.status === `default`
             ? c.dim.gray(getHintText(`Quick Actions and Help: "Ctrl + Q" | Exit: "Esc"`))
             : state.status === `quick-actions-mode`
@@ -334,7 +334,7 @@ export async function text<
           helpTextLines.push(defaultHelpText);
         }
 
-        const promptMessage = getPromptMessage(props.message);
+        const promptMessage = getPromptMessage(opts.message);
         const promptText = getPromptText(state.promptState.text, state.isNull);
         const dashedLine = getDashedLine(state.promptState.value, state.promptState.shift, width);
 
@@ -350,25 +350,25 @@ export async function text<
       }
       case `canceled`: {
         const promptText = getPromptFinalText(state.promptState.value, state.isNull, width);
-        lines.push(`${symbol.CANCELED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        lines.push(`${symbol.CANCELED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.CANCELED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.CANCELED_PROMPT_BAR}`);
-        lines.push(`${symbol.CANCELED_PROMPT_TERMINATOR}  ${c.yellow(props.canceledMessage ?? `Canceled`)}`);
+        lines.push(`${symbol.CANCELED_PROMPT_TERMINATOR}  ${c.yellow(opts.canceledMessage ?? `Canceled`)}`);
         lines.push(` `);
         break;
       }
       case `terminated`: {
         const promptText = getPromptFinalText(state.promptState.value, state.isNull, width);
-        lines.push(`${symbol.TERMINATED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        lines.push(`${symbol.TERMINATED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.TERMINATED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.TERMINATED_PROMPT_BAR}`);
-        lines.push(`${symbol.TERMINATED_PROMPT_TERMINATOR}  ${c.red(props.terminatedMessage ?? `Terminated`)}`);
+        lines.push(`${symbol.TERMINATED_PROMPT_TERMINATOR}  ${c.red(opts.terminatedMessage ?? `Terminated`)}`);
         lines.push(` `);
         break;
       }
       case `completed`: {
         const promptText = getPromptFinalText(state.promptState.value, state.isNull, width);
-        lines.push(`${symbol.COMPLETED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        lines.push(`${symbol.COMPLETED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.COMPLETED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.BAR}`);
         break;
@@ -386,7 +386,7 @@ export async function text<
       // First time, big time
       case `initialization`: {
         // Let's decide here how we'll proceed, with `null` or with text...
-        setIsNull( !! props.nullable && props.initialValue == null);
+        setIsNull( !! opts.nullable && opts.initialValue == null);
         break;
       }
       case `text-changed`: {
@@ -447,7 +447,7 @@ export async function text<
             break;
           }
           case `n`: {
-            if (props.nullable) {
+            if (opts.nullable) {
               toggleNullAndEnterDefaultMode();
             }
             break;
@@ -562,7 +562,7 @@ export async function text<
           }
           case `n`: {
             closeMan();
-            if (props.nullable) {
+            if (opts.nullable) {
               toggleNullAndEnterDefaultMode();
             }
             else {
@@ -618,10 +618,10 @@ export async function text<
   const { promise, resolve } = withResolvers<TextResult<TNullable>>();
 
   const promptListener = textPrompt({
-    blinkInterval: props.blinkInterval,
-    initialCursor: props.initialValue?.length ?? 0,
-    initialValue: props.initialValue ?? ``,
-    maxLength: props.maxLength,
+    blinkInterval: opts.blinkInterval,
+    initialCursor: opts.initialValue?.length ?? 0,
+    initialValue: opts.initialValue ?? ``,
+    maxLength: opts.maxLength,
     width,
   });
 
@@ -629,19 +629,19 @@ export async function text<
   promptListener.on(`data`, onData);
 
   // Maybe we should start in `paused` mode if the default value is `null`
-  const paused = !! props.nullable && props.initialValue == null;
+  const paused = !! opts.nullable && opts.initialValue == null;
   promptListener.listen(null, paused);
 
   const result = await promise;
   promptListener.end();
   await writer.end();
 
-  if (result.terminated && (props.throwOnCtrlC ?? true)) {
-    throw new TerminatedByCtrlC(props.name ? `Text prompt \`${props.name}\``: `Text prompt`);
+  if (result.terminated && (opts.throwOnCtrlC ?? true)) {
+    throw new TerminatedByCtrlC(opts.name ? `Text prompt \`${opts.name}\``: `Text prompt`);
   }
 
-  if (result.canceled && (props.throwOnEsc ?? false)) {
-    throw new TerminatedByEsc(props.name ? `Text prompt \`${props.name}\``: `Text prompt`);
+  if (result.canceled && (opts.throwOnEsc ?? false)) {
+    throw new TerminatedByEsc(opts.name ? `Text prompt \`${opts.name}\``: `Text prompt`);
   }
 
   return result;

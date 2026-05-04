@@ -6,7 +6,7 @@ import type { Man } from './core/man/index.ts';
 import { printMan } from './core/man/index.ts';
 import { withResolvers } from './core/tools/withResolvers.ts';
 import type { SelectValidationHint } from './index.ts';
-import type { SelectProps } from './index.ts';
+import type { SelectOpts } from './index.ts';
 import type { SelectResult } from './index.ts';
 import { SELECT_DEFAULT_MAX_HEIGHT } from './index.ts';
 import { SELECT_DEFAULT_WIDTH } from './index.ts';
@@ -45,13 +45,13 @@ type ShiftDirection = `down` | `up`;
 export async function select<
   TValue extends any = any,
   TNullable extends boolean = false,
->(props: SelectProps<TValue, TNullable>): Promise<SelectResult<TValue, TNullable>> {
-  const width = Math.max(0, props?.width ?? SELECT_DEFAULT_WIDTH);
-  const maxHeight = Math.max(0, props?.maxHeight ?? SELECT_DEFAULT_MAX_HEIGHT);
-  const contentOverflow = props.contentOverflow ?? `hidden`;
+>(opts: SelectOpts<TValue, TNullable>): Promise<SelectResult<TValue, TNullable>> {
+  const width = Math.max(0, opts?.width ?? SELECT_DEFAULT_WIDTH);
+  const maxHeight = Math.max(0, opts?.maxHeight ?? SELECT_DEFAULT_MAX_HEIGHT);
+  const contentOverflow = opts.contentOverflow ?? `hidden`;
 
   let contentHeight = 0;
-  const content: ContentOption[] = props.options.map((option) => {
+  const content: ContentOption[] = opts.options.map((option) => {
     let lines: string[];
     if (contentOverflow === `word-wrap`) {
       lines = wrapAnsi(option.label, width -  2, { hard: true, wordWrap: true }).split(`\n`);
@@ -63,21 +63,21 @@ export async function select<
       lines = [sliceAnsi(option.label, 0, width - 2)];
     }
 
-    const start = contentHeight + (props.nullable ? 1 : 0);
-    const end = contentHeight + lines.length - 1 + (props.nullable ? 1 : 0);
+    const start = contentHeight + (opts.nullable ? 1 : 0);
+    const end = contentHeight + lines.length - 1 + (opts.nullable ? 1 : 0);
     contentHeight += lines.length;
     return { start, end, lines };
   });
 
-  const initialIsNull = !! props.nullable && props.initialValue == null;
+  const initialIsNull = !! opts.nullable && opts.initialValue == null;
 
-  const initialSelectedOption = props.initialValue != null
-    ? props.options.findIndex((option) => option.value === props.initialValue) ?? 0
+  const initialSelectedOption = opts.initialValue != null
+    ? opts.options.findIndex((option) => option.value === opts.initialValue) ?? 0
     : 0;
 
   const initialShiftDirection = `down`;
 
-  const initialShift = getShift(0, initialShiftDirection, initialSelectedOption, initialIsNull, !! props.nullable, content, contentHeight, maxHeight);
+  const initialShift = getShift(0, initialShiftDirection, initialSelectedOption, initialIsNull, !! opts.nullable, content, contentHeight, maxHeight);
 
   let state: SelectState = {
     isNull: initialIsNull,
@@ -128,7 +128,7 @@ export async function select<
     if (state.isNull) {
       setIsNull(false);
       setShiftDirection(`down`);
-      const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! props.nullable, content, contentHeight, maxHeight);
+      const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! opts.nullable, content, contentHeight, maxHeight);
       setShift(shift);
       enterDefaultMode();
     }
@@ -152,7 +152,7 @@ export async function select<
     setIsNull(false);
     setSelectedOption(selectedOption);
     setShiftDirection(`down`);
-    const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! props.nullable, content, contentHeight, maxHeight);
+    const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! opts.nullable, content, contentHeight, maxHeight);
     setShift(shift);
     setWarn(null);
     render();
@@ -161,7 +161,7 @@ export async function select<
   const changeOption = (selectedOption: number, shiftDirection: ShiftDirection) => {
     setSelectedOption(selectedOption);
     setShiftDirection(shiftDirection);
-    const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! props.nullable, content, contentHeight, maxHeight);
+    const shift = getShift(state.shift, state.shiftDirection, state.selectedOption, state.isNull, !! opts.nullable, content, contentHeight, maxHeight);
     setShift(shift);
     setWarn(null);
     render();
@@ -183,8 +183,8 @@ export async function select<
   };
 
   const tryComplete = () => {
-    const validationResult = props.validate
-      ? props.validate((state.isNull ? null : props.options[state.selectedOption].value) as TNullable extends true ? null | TValue : TValue)
+    const validationResult = opts.validate
+      ? opts.validate((state.isNull ? null : opts.options[state.selectedOption].value) as TNullable extends true ? null | TValue : TValue)
       : null;
     if (validationResult) {
       // We can beep here
@@ -218,13 +218,13 @@ export async function select<
     resolve({
       canceled,
       terminated,
-      value: (state.isNull ? null : props.options[state.selectedOption].value) as TNullable extends true ? null | TValue : TValue,
+      value: (state.isNull ? null : opts.options[state.selectedOption].value) as TNullable extends true ? null | TValue : TValue,
     });
   };
 
-  const hints: string[] = props.hints ? [...props.hints] : [];
+  const hints: string[] = opts.hints ? [...opts.hints] : [];
 
-  if (props.nullable && (props.printNullableHint ?? true)) {
+  if (opts.nullable && (opts.printNullableHint ?? true)) {
     hints.push(`This field is nullable`);
   }
 
@@ -237,7 +237,7 @@ export async function select<
       case `default`:
       case `quick-actions-mode`:
       case `help-mode`: {
-        const defaultHelpText = (props.printDefaultHelpText ?? true)
+        const defaultHelpText = (opts.printDefaultHelpText ?? true)
           ? state.status === `default`
             ? c.dim.gray(getHintText(`Quick Actions and Help: "Ctrl + Q" | Exit: "Esc"`))
             : state.status === `quick-actions-mode`
@@ -285,8 +285,8 @@ export async function select<
         const promptBar = state.warn ? symbol.WARN_PROMPT_BAR : symbol.ACTIVE_PROMPT_BAR;
         const promptTerminator = state.warn ? symbol.WARN_PROMPT_TERMINATOR : symbol.ACTIVE_PROMPT_TERMINATOR;
 
-        const promptMessage = getPromptMessage(props.message, width);
-        const contentLines = getContentLines(content, state.selectedOption, state.shift, state.isNull, !! props.nullable, maxHeight, width, promptBar);
+        const promptMessage = getPromptMessage(opts.message, width);
+        const contentLines = getContentLines(content, state.selectedOption, state.shift, state.isNull, !! opts.nullable, maxHeight, width, promptBar);
         const dashedLine = getDashedLine(width);
 
         lines.push(`${promptMarker}  ${promptMessage}`);
@@ -296,26 +296,26 @@ export async function select<
         break;
       }
       case `canceled`: {
-        const promptText = getPromptFinalText(props.options[state.selectedOption].label, state.isNull, width);
-        lines.push(`${symbol.CANCELED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        const promptText = getPromptFinalText(opts.options[state.selectedOption].label, state.isNull, width);
+        lines.push(`${symbol.CANCELED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.CANCELED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.CANCELED_PROMPT_BAR}`);
-        lines.push(`${symbol.CANCELED_PROMPT_TERMINATOR}  ${c.yellow(props.canceledMessage ?? `Canceled`)}`);
+        lines.push(`${symbol.CANCELED_PROMPT_TERMINATOR}  ${c.yellow(opts.canceledMessage ?? `Canceled`)}`);
         lines.push(` `);
         break;
       }
       case `terminated`: {
-        const promptText = getPromptFinalText(props.options[state.selectedOption].label, state.isNull, width);
-        lines.push(`${symbol.TERMINATED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        const promptText = getPromptFinalText(opts.options[state.selectedOption].label, state.isNull, width);
+        lines.push(`${symbol.TERMINATED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.TERMINATED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.TERMINATED_PROMPT_BAR}`);
-        lines.push(`${symbol.TERMINATED_PROMPT_TERMINATOR}  ${c.red(props.terminatedMessage ?? `Terminated`)}`);
+        lines.push(`${symbol.TERMINATED_PROMPT_TERMINATOR}  ${c.red(opts.terminatedMessage ?? `Terminated`)}`);
         lines.push(``);
         break;
       }
       case `completed`: {
-        const promptText = getPromptFinalText(props.options[state.selectedOption].label, state.isNull, width);
-        lines.push(`${symbol.COMPLETED_PROMPT_MARKER}  ${c.dim(props.message)}`);
+        const promptText = getPromptFinalText(opts.options[state.selectedOption].label, state.isNull, width);
+        lines.push(`${symbol.COMPLETED_PROMPT_MARKER}  ${c.dim(opts.message)}`);
         lines.push(`${symbol.COMPLETED_PROMPT_BAR}  ${promptText}`);
         lines.push(`${symbol.BAR}`);
         break;
@@ -348,7 +348,7 @@ export async function select<
                 if (state.selectedOption > 0) {
                   changeOption(state.selectedOption - 1, `up`);
                 }
-                else if (props.nullable) {
+                else if (opts.nullable) {
                   switchToNull();
                 }
               }
@@ -360,7 +360,7 @@ export async function select<
               if (state.isNull) {
                 switchToOption(0);
               }
-              else if (state.selectedOption < props.options.length - 1) {
+              else if (state.selectedOption < opts.options.length - 1) {
                 changeOption(state.selectedOption + 1, `down`);
               }
             }
@@ -370,7 +370,7 @@ export async function select<
           case stdin.key.shiftLeft: {
             if (state.status === `default`) {
               if ( ! state.isNull) {
-                if (props.nullable) {
+                if (opts.nullable) {
                   switchToNull();
                 }
                 else if (state.selectedOption > 0) {
@@ -384,10 +384,10 @@ export async function select<
           case stdin.key.shiftRight: {
             if (state.status === `default`) {
               if (state.isNull) {
-                switchToOption(props.options.length - 1);
+                switchToOption(opts.options.length - 1);
               }
-              else if (state.selectedOption < props.options.length - 1) {
-                changeOption(props.options.length - 1,  `down`);
+              else if (state.selectedOption < opts.options.length - 1) {
+                changeOption(opts.options.length - 1,  `down`);
               }
             }
             break;
@@ -415,7 +415,7 @@ export async function select<
             break;
           }
           case `n`: {
-            if (props.nullable) {
+            if (opts.nullable) {
               toggleNullAndEnterDefaultMode();
             }
             break;
@@ -443,7 +443,7 @@ export async function select<
           }
           case `n`: {
             closeMan();
-            if (props.nullable) {
+            if (opts.nullable) {
               toggleNullAndEnterDefaultMode();
             }
             else {
@@ -468,12 +468,12 @@ export async function select<
   listener.end();
   await writer.end();
 
-  if (result.terminated && (props.throwOnCtrlC ?? true)) {
-    throw new TerminatedByCtrlC(props.name ? `Select prompt \`${props.name}\`` : `Select prompt`);
+  if (result.terminated && (opts.throwOnCtrlC ?? true)) {
+    throw new TerminatedByCtrlC(opts.name ? `Select prompt \`${opts.name}\`` : `Select prompt`);
   }
 
-  if (result.canceled && (props.throwOnEsc ?? false)) {
-    throw new TerminatedByEsc(props.name ? `Select prompt \`${props.name}\`` : `Select prompt`);
+  if (result.canceled && (opts.throwOnEsc ?? false)) {
+    throw new TerminatedByEsc(opts.name ? `Select prompt \`${opts.name}\`` : `Select prompt`);
   }
 
   return result;

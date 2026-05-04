@@ -1,6 +1,6 @@
 import type { TableColumn } from './index.ts';
 
-export type TableProps<
+export type TableOpts<
   TMatrixItem extends Record<string, any> = Record<string, any>,
 > = {
   animate?: boolean;

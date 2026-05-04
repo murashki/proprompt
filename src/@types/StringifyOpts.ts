@@ -1,4 +1,4 @@
-export type StringifyProps = {
+export type StringifyOpts = {
   depth?: number;
   inline?: boolean;
   innerIndent?: number;

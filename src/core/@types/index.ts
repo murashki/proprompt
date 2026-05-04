@@ -3,7 +3,7 @@ export * from './TextPromptDataEventHandler.ts';
 export * from './TextPromptEventName.ts';
 export * from './TextPromptKeypressEventHandler.ts';
 export * from './TextPromptListener.ts';
-export * from './TextPromptProps.ts';
+export * from './TextPromptOpts.ts';
 export * from './TextPromptState.ts';
 export * from './TextPromptStateChangeEventHandler.ts';
 export * from './TextPromptStateChangeReason.ts';

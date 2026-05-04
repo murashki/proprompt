@@ -7,7 +7,7 @@ import type { TextPromptDataEventHandler } from './index.ts';
 import type { TextPromptEventName } from './index.ts';
 import type { TextPromptKeypressEventHandler } from './index.ts';
 import type { TextPromptListener } from './index.ts';
-import type { TextPromptProps } from './index.ts';
+import type { TextPromptOpts } from './index.ts';
 import type { TextPromptState } from './index.ts';
 import type { TextPromptStateChangeEventHandler } from './index.ts';
 import type { TextPromptStateChangeReason } from './index.ts';
@@ -15,10 +15,10 @@ import type { TextPromptStateUpdate } from './index.ts';
 import { DEFAULT_BLINK_INTERVAL } from './index.ts';
 import { stdin } from './index.ts';
 
-export function textPrompt(props?: TextPromptProps): TextPromptListener {
-  const maxLength = Math.max(0, props?.maxLength ?? Infinity);
-  const width = Math.max(0, props?.width ?? Infinity);
-  const blinkInterval = Math.max(0, props?.blinkInterval ?? DEFAULT_BLINK_INTERVAL);
+export function textPrompt(opts?: TextPromptOpts): TextPromptListener {
+  const maxLength = Math.max(0, opts?.maxLength ?? Infinity);
+  const width = Math.max(0, opts?.width ?? Infinity);
+  const blinkInterval = Math.max(0, opts?.blinkInterval ?? DEFAULT_BLINK_INTERVAL);
 
   const eventHandlers = {
     statechange: null as null | TextPromptStateChangeEventHandler,
@@ -205,11 +205,11 @@ export function textPrompt(props?: TextPromptProps): TextPromptListener {
         listenerState = `paused`;
       }
 
-      const value = update?.value ?? props?.initialValue;
-      const cursor = update?.cursor ?? props?.initialCursor;
-      const cursorInverse = update?.cursorInverse ?? props?.initialCursorInverse;
-      const selection = update?.selection === undefined ? props?.initialSelection : update.selection;
-      const shift = update?.shift ?? props?.initialShift;
+      const value = update?.value ?? opts?.initialValue;
+      const cursor = update?.cursor ?? opts?.initialCursor;
+      const cursorInverse = update?.cursorInverse ?? opts?.initialCursorInverse;
+      const selection = update?.selection === undefined ? opts?.initialSelection : update.selection;
+      const shift = update?.shift ?? opts?.initialShift;
       updateState({ value, cursor, cursorInverse, selection, shift }, `initialization`);
 
       listener.listen();

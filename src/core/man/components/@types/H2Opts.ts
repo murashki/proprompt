@@ -1,4 +1,4 @@
-export type H1Props = {
+export type H2Opts = {
   content: string;
   paddingLeft?: number;
 };

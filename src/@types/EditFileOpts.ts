@@ -1,4 +1,4 @@
-export type EditFileProps = {
+export type EditFileOpts = {
   temporary?: boolean;
   content?: string;
 };

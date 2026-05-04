@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import c from 'chalk';
 import { format } from 'date-fns/format';
-import type { MonitorFileProps } from './index.ts';
+import type { MonitorFileOpts } from './index.ts';
 import { MONITOR_FILE_REFRESH_INTERVAL } from './index.ts';
 import { cancel } from './index.ts';
 import { createWriter } from './index.ts';
@@ -18,15 +18,15 @@ import { waitForKey } from './index.ts';
 /**
  * Выводит пустую строку в конце.
  */
-export async function monitorFile(filePath: string, props?: MonitorFileProps): Promise<void> {
+export async function monitorFile(filePath: string, opts?: MonitorFileOpts): Promise<void> {
   if ( ! fs.existsSync(filePath)) {
     await message(`File not found: ${filePath}`, { as: `warning` });
     return;
   }
 
-  let lineCount = props?.lineCount ?? 0;
+  let lineCount = opts?.lineCount ?? 0;
 
-  if ( ! props?.lineCount) {
+  if ( ! opts?.lineCount) {
     const lineCountSelectResult = await select({
       message: `Number of lines to monitor`,
       options: [
@@ -52,7 +52,7 @@ export async function monitorFile(filePath: string, props?: MonitorFileProps): P
   async function print(content: string) {
     const lines = getLines(c.dim(`File: ${filePath}`));
 
-    if (props?.printFileStat ?? true) {
+    if (opts?.printFileStat ?? true) {
       const stats = fs.statSync(filePath);
       const datetime = format(new Date(), `yyyy.MM.dd HH:mm:ss XXX`);
       lines.push(...getLines(c.dim(`Modified at: ${format(stats.mtime, `yyyy.MM.dd HH:mm:ss XXX`)}`)));

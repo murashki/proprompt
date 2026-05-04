@@ -1,26 +1,26 @@
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { MatrixColumnContentOverflowValue } from './index.ts';
+import type { MatrixColumnContentOverflow } from './index.ts';
 import type { MultipleColumnMatrix } from './index.ts';
-import type { MultipleColumnMatrixProps } from './index.ts';
+import type { MultipleColumnMatrixOpts } from './index.ts';
 import { padAround } from './index.ts';
 import { padEnd } from './index.ts';
 import { padStart } from './index.ts';
 
 export function compileMultipleColumnMatrix<
   TMatrixItem extends Record<string, any>,
->(props: MultipleColumnMatrixProps<TMatrixItem>): MultipleColumnMatrix {
-  const gapWidth = props.gap ? stripAnsi(props.gap).length : 0;
-  const leftGapWidth = props.leftGap ? stripAnsi(props.leftGap).length : 0;
-  const rightGapWidth = props.rightGap ? stripAnsi(props.rightGap).length : 0;
-  const matrixWidth = props.width ? Math.max(0, props.width - leftGapWidth - rightGapWidth) : null;
+>(opts: MultipleColumnMatrixOpts<TMatrixItem>): MultipleColumnMatrix {
+  const gapWidth = opts.gap ? stripAnsi(opts.gap).length : 0;
+  const leftGapWidth = opts.leftGap ? stripAnsi(opts.leftGap).length : 0;
+  const rightGapWidth = opts.rightGap ? stripAnsi(opts.rightGap).length : 0;
+  const matrixWidth = opts.width ? Math.max(0, opts.width - leftGapWidth - rightGapWidth) : null;
 
-  let matrixPreform = props.columns
+  let matrixPreform = opts.columns
     .map((column, columnIndex) => {
       let columnMinContent = 0;
       let columnMaxContent = 0;
-      const rows = props.data.map((item) => {
+      const rows = opts.data.map((item) => {
         const text = (column.render ? column.render(item) : column.key ? String(item[column.key]) : null) ?? ``;
         const plainText = stripAnsi(text);
         const minContent = plainText.split(/\s+/).reduce((width, line) => {
@@ -38,7 +38,7 @@ export function compileMultipleColumnMatrix<
       let minWidth: number = 0;
       let maxWidth: number = Infinity;
       let desiredWidth: number;
-      let overflow: MatrixColumnContentOverflowValue = `hidden`;
+      let overflow: MatrixColumnContentOverflow = `hidden`;
       if (typeof column.width === `number`) {
         width = Math.max(0, column.width);
         minWidth = width;
@@ -189,7 +189,7 @@ export function compileMultipleColumnMatrix<
     });
   }
 
-  const rows = Array(props.data.length).fill(null).map((_, rowIndex) => {
+  const rows = Array(opts.data.length).fill(null).map((_, rowIndex) => {
     let rowHeight = 0;
     const cells = matrixPreform.map((column) => {
       const rowLines = column.rows[rowIndex].text.split(`\n`)
@@ -226,8 +226,8 @@ export function compileMultipleColumnMatrix<
           .map((column, columnIndex) => {
             return cells[columnIndex][lineIndex] ?? ` `.repeat(column.width!);
           })
-          .join(props.gap ?? ``);
-        return (props.leftGap ?? ``) + innerLine + (props.rightGap ?? ``);
+          .join(opts.gap ?? ``);
+        return (opts.leftGap ?? ``) + innerLine + (opts.rightGap ?? ``);
       });
   });
 
@@ -238,8 +238,8 @@ export function compileMultipleColumnMatrix<
     columns: matrixPreform.map((column) => column.width!),
     rows,
     width,
-    gap: props.gap ?? ``,
-    leftGap: props.leftGap ?? ``,
-    rightGap: props.rightGap ?? ``,
+    gap: opts.gap ?? ``,
+    leftGap: opts.leftGap ?? ``,
+    rightGap: opts.rightGap ?? ``,
   };
 }

@@ -1,14 +1,14 @@
 import { compileMultipleColumnMatrix } from '../../../index.ts';
 import { symbol } from '../../../index.ts';
 import type { TipsElement } from './index.ts';
-import type { TipsProps } from './index.ts';
+import type { TipsOpts } from './index.ts';
 import { TIPS_MIN_WIDTH } from './index.ts';
 
-export function Tips(props: TipsProps): TipsElement {
+export function Tips(opts: TipsOpts): TipsElement {
   return {
     type: `tips`,
-    list: props.list,
-    paddingLeft: props.paddingLeft,
+    list: opts.list,
+    paddingLeft: opts.paddingLeft,
     compile: (width: number) => {
       const safetyWidth = Math.max(TIPS_MIN_WIDTH, width);
 
@@ -25,11 +25,11 @@ export function Tips(props: TipsProps): TipsElement {
             contentOverflow: `word-wrap`,
           },
         ],
-        data: props.list.map((text) => {
+        data: opts.list.map((text) => {
           return { text };
         }),
         gap: `  `,
-        leftGap: ` `.repeat(props.paddingLeft ?? 0),
+        leftGap: ` `.repeat(opts.paddingLeft ?? 0),
         width: safetyWidth,
       });
 

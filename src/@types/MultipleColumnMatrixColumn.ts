@@ -1,6 +1,6 @@
-import type { MatrixColumnContentAlignValue } from './MatrixColumnContentAlignValue.ts';
-import type { MatrixColumnContentOverflowValue } from './MatrixColumnContentOverflowValue.ts';
-import type { MatrixColumnWidthValue } from './MatrixColumnWidthValue.ts';
+import type { MatrixColumnContentAlign } from './MatrixColumnContentAlign.ts';
+import type { MatrixColumnContentOverflow } from './MatrixColumnContentOverflow.ts';
+import type { MatrixColumnWidth } from './MatrixColumnWidth.ts';
 import type { MultipleColumnMatrixColumnRender } from './MultipleColumnMatrixColumnRender.ts';
 
 /*
@@ -46,10 +46,10 @@ export type MultipleColumnMatrixColumn<
 > = {
   key?: keyof TMatrixItem,
   render?: MultipleColumnMatrixColumnRender<TMatrixItem>;
-  width?: MatrixColumnWidthValue;
+  width?: MatrixColumnWidth;
   minWidth?: number;
   maxWidth?: number;
-  contentAlign?: MatrixColumnContentAlignValue;
-  contentOverflow?: MatrixColumnContentOverflowValue;
+  contentAlign?: MatrixColumnContentAlign;
+  contentOverflow?: MatrixColumnContentOverflow;
   keepVisible?: boolean;
 };
