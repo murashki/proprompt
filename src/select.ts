@@ -4,6 +4,7 @@ import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
 import type { Man } from './core/man/index.ts';
 import { printMan } from './core/man/index.ts';
+import { withResolvers } from './core/tools/withResolvers.ts';
 import type { SelectValidationHint } from './index.ts';
 import type { SelectProps } from './index.ts';
 import type { SelectResult } from './index.ts';
@@ -14,7 +15,6 @@ import { stdin } from './index.ts';
 import { symbol } from './index.ts';
 import { TerminatedByCtrlC } from './index.ts';
 import { TerminatedByEsc } from './index.ts';
-import { withResolvers } from './index.ts';
 import { getManPage } from './select.man.ts';
 
 type ContentOption = {

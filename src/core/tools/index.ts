@@ -6,3 +6,4 @@ export * from './nbsp.ts';
 export * from './padAround.ts';
 export * from './padEnd.ts';
 export * from './padStart.ts';
+// export * from './withResolvers.ts';

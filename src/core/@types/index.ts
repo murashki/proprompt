@@ -1,4 +1,3 @@
-export * from './Resolvers.ts';
 export * from './TextPromptCharEventHandler.ts';
 export * from './TextPromptDataEventHandler.ts';
 export * from './TextPromptEventName.ts';

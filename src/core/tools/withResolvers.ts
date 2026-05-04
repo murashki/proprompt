@@ -1,4 +1,4 @@
-import type { Resolvers } from './index.ts';
+import type { Resolvers } from './@types/Resolvers.ts';
 
 export function withResolvers<
   TData extends any = void,

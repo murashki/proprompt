@@ -3,6 +3,7 @@ import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import type { Man } from './core/man/index.ts';
 import { printMan } from './core/man/index.ts';
+import { withResolvers } from './core/tools/withResolvers.ts';
 import type { TextPromptState } from './index.ts';
 import type { TextPromptStateChangeReason } from './index.ts';
 import type { TextPromptStateUpdate } from './index.ts';
@@ -18,7 +19,6 @@ import { symbol } from './index.ts';
 import { textPrompt } from './index.ts';
 import { TerminatedByCtrlC } from './index.ts';
 import { TerminatedByEsc } from './index.ts';
-import { withResolvers } from './index.ts';
 import { getManPage } from './text.man.ts';
 
 type TextState = {

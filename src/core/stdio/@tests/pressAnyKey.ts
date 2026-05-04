@@ -2,7 +2,7 @@
 
 import type { Key } from 'node:readline';
 import { inspect } from 'node:util';
-import { withResolvers } from '../../withResolvers.ts';
+import { withResolvers } from '../../tools/withResolvers.ts';
 import { stdin } from '../index.ts';
 import { stdout } from '../index.ts';
 
