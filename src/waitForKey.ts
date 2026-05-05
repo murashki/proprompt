@@ -1,8 +1,8 @@
-import type { WaitForKeyCallback } from './@types/WaitForKeyCallback.ts';
-import type { WaitForKeyCallbackHandler } from './@types/WaitForKeyCallbackHandler.ts';
+import type { HandleWaitForKey } from './@types/HandleWaitForKey.ts';
+import type { WaitForKeyHandler } from './@types/WaitForKeyHandler.ts';
 import { stdin } from './core/stdio/index.ts';
 
-export async function waitForKey(keys: string[], fn: WaitForKeyCallback): Promise<null | string> {
+export async function waitForKey(keys: string[], fn: HandleWaitForKey): Promise<null | string> {
   const listener = stdin.createListener();
 
   listener.on(`data`, (data: Buffer) => {
@@ -20,7 +20,7 @@ export async function waitForKey(keys: string[], fn: WaitForKeyCallback): Promis
     listener.end();
   };
 
-  const handler: WaitForKeyCallbackHandler = {
+  const handler: WaitForKeyHandler = {
     resolve,
     resolved: false,
     resolvedKey: null,

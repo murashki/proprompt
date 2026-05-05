@@ -7,7 +7,7 @@ import { createWriter } from './core/writer.ts';
 import { MONITOR_FILE_REFRESH_INTERVAL } from './constants.ts';
 import { cancel } from './cancel.ts';
 import { delay } from './delay.ts';
-import { getLines } from './getLines.ts';
+import { lineSplit } from './lineSplit.ts';
 import { line } from './line.ts';
 import { message } from './message.ts';
 import { select } from './select.ts';
@@ -50,17 +50,17 @@ export async function monitorFile(filePath: string, opts?: MonitorFileOpts): Pro
   const writer = createWriter();
 
   async function print(content: string) {
-    const lines = getLines(c.dim(`File: ${filePath}`));
+    const lines = lineSplit(c.dim(`File: ${filePath}`));
 
     if (opts?.printFileStat ?? true) {
       const stats = fs.statSync(filePath);
       const datetime = format(new Date(), `yyyy.MM.dd HH:mm:ss XXX`);
-      lines.push(...getLines(c.dim(`Modified at: ${format(stats.mtime, `yyyy.MM.dd HH:mm:ss XXX`)}`)));
-      lines.push(...getLines(c.dim(`Current time: ${datetime}`)));
+      lines.push(...lineSplit(c.dim(`Modified at: ${format(stats.mtime, `yyyy.MM.dd HH:mm:ss XXX`)}`)));
+      lines.push(...lineSplit(c.dim(`Current time: ${datetime}`)));
     }
 
-    lines.push(...getLines(`\n` + content + `\n`));
-    lines.push(...getLines(c.dim(`Press "Esc" to exit log monitor`)));
+    lines.push(...lineSplit(`\n` + content + `\n`));
+    lines.push(...lineSplit(c.dim(`Press "Esc" to exit log monitor`)));
 
     await writer.write({ lines, animateInitial: true });
   }

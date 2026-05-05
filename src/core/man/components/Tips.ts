@@ -25,9 +25,7 @@ export function Tips(opts: TipsOpts): TipsElement {
             contentOverflow: `word-wrap`,
           },
         ],
-        data: opts.list.map((text) => {
-          return { text };
-        }),
+        data: opts.list.map((text) => ({ text })),
         gap: `  `,
         leftGap: ` `.repeat(opts.paddingLeft ?? 0),
         width: safetyWidth,

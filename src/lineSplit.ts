@@ -2,11 +2,11 @@ import c from 'chalk';
 import sliceAnsi from 'slice-ansi';
 import stripAnsi from 'strip-ansi';
 import wrapAnsi from 'wrap-ansi';
-import type { GetLinesOpts } from './@types/GetLinesOpts.ts';
+import type { LineSplitOpts } from './@types/LineSplitOpts.ts';
 import { stdout } from './core/stdio/index.ts';
 import * as symbol from './symbol.ts';
 
-export function getLines(text: string, opts?: GetLinesOpts) {
+export function lineSplit(text: string, opts?: LineSplitOpts): string[] {
   let marker = symbol.BAR;
   let bar = symbol.BAR;
   switch (opts?.as) {

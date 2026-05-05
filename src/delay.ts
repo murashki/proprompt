@@ -1,7 +1,7 @@
-import type { DelayCallback } from './@types/DelayCallback.ts';
-import type { DelayCallbackHandler } from './@types/DelayCallbackHandler.ts';
+import type { HandleDelay } from './@types/HandleDelay.ts';
+import type { DelayHandler } from './@types/DelayHandler.ts';
 
-export function delay(ms: number, fn?: DelayCallback) {
+export function delay(ms: number, fn?: HandleDelay) {
   return new Promise<void>((resolve) => {
     let timeout: null | NodeJS.Timeout = null;
 
@@ -14,7 +14,7 @@ export function delay(ms: number, fn?: DelayCallback) {
       }
     };
 
-    const handler: DelayCallbackHandler = {
+    const handler: DelayHandler = {
       resolve: tryResolve,
       resolved: false,
       onResolve: null,

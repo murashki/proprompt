@@ -1,10 +1,7 @@
-import type { TableColumn } from './TableColumn.ts';
+import type { TableSplitOpts } from './TableSplitOpts.ts';
 
 export type TableOpts<
-  TMatrixItem extends Record<string, any> = Record<string, any>,
-> = {
+  TTableItem extends Record<string, any> = Record<string, any>,
+> = TableSplitOpts<TTableItem> & {
   animate?: boolean;
-  columns: TableColumn<TMatrixItem>[];
-  data: TMatrixItem[];
-  width?: number;
 };

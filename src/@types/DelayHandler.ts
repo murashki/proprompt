@@ -1,4 +1,4 @@
-export type DelayCallbackHandler = {
+export type DelayHandler = {
   resolve: () => void;
   resolved: boolean;
   onResolve: null | (() => void);
