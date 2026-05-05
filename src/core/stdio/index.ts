@@ -14,15 +14,15 @@ export const stdout = {
   cursor,
   erase,
   screen,
-  write: process.stdout.write.bind(process.stdout),
-  addListener: process.stdout.addListener.bind(process.stdout),
-  removeListener: process.stdout.removeListener.bind(process.stdout),
+  write: (...args: Parameters<typeof process.stdout.write>) => process.stdout.write(...args),
+  addListener: (...args: Parameters<typeof process.stdout.addListener>) => process.stdout.addListener(...args),
+  removeListener: (...args: Parameters<typeof process.stdout.removeListener>) => process.stdout.removeListener(...args),
 };
 
 export const stdin = {
   createListener,
   key: sisteransi.key,
-  setRawMode: process.stdin.setRawMode.bind(process.stdin),
-  resume: process.stdin.resume.bind(process.stdin),
-  pause: process.stdin.pause.bind(process.stdin),
+  setRawMode: (...args: Parameters<typeof process.stdin.setRawMode>) => process.stdin.setRawMode(...args),
+  resume: (...args: Parameters<typeof process.stdin.resume>) => process.stdin.resume(...args),
+  pause: (...args: Parameters<typeof process.stdin.pause>) => process.stdin.pause(...args),
 };
