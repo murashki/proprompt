@@ -24,6 +24,7 @@ export * from './select.ts';
 export * from './stringify.ts';
 export * as symbol from './symbol.ts';
 export * from './table.ts';
+export * from './tableSplit.ts';
 export * from './terminate.ts';
 export * from './TerminatedByCtrlC.ts';
 export * from './TerminatedByEsc.ts';
