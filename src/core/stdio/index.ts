@@ -9,6 +9,14 @@ export * from './@types/index.ts';
 
 export { sisteransi };
 
+export const stdin = {
+  createListener,
+  key: sisteransi.key,
+  setRawMode: (...args: Parameters<typeof process.stdin.setRawMode>) => process.stdin.setRawMode(...args),
+  resume: (...args: Parameters<typeof process.stdin.resume>) => process.stdin.resume(...args),
+  pause: (...args: Parameters<typeof process.stdin.pause>) => process.stdin.pause(...args),
+};
+
 export const stdout = {
   beep,
   cursor,
@@ -17,12 +25,4 @@ export const stdout = {
   write: (...args: Parameters<typeof process.stdout.write>) => process.stdout.write(...args),
   addListener: (...args: Parameters<typeof process.stdout.addListener>) => process.stdout.addListener(...args),
   removeListener: (...args: Parameters<typeof process.stdout.removeListener>) => process.stdout.removeListener(...args),
-};
-
-export const stdin = {
-  createListener,
-  key: sisteransi.key,
-  setRawMode: (...args: Parameters<typeof process.stdin.setRawMode>) => process.stdin.setRawMode(...args),
-  resume: (...args: Parameters<typeof process.stdin.resume>) => process.stdin.resume(...args),
-  pause: (...args: Parameters<typeof process.stdin.pause>) => process.stdin.pause(...args),
 };
